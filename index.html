@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zest Craft</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-gray-800 shadow-lg">
+    <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-yellow-400"><a id="website-name" href="/index.html"></a></h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#" class="hover:text-yellow-400 transition">Home</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Categories</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">About</a></li>
+          <li><a href="#" class="hover:text-yellow-400 transition">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-12">
+    <!-- Featured Post -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-6">Featured Story</h2>
+      <div id="featured-post" class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <img id="featured-image" src="" alt="Featured Post" class="w-full h-64 object-cover">
+        <div class="p-6">
+          <h3 id="featured-title" class="text-xl font-bold mb-2"></h3>
+          <p id="featured-description" class="text-gray-400 mb-4"></p>
+          <a id="featured-link" href="#" class="text-yellow-400 hover:underline">Read More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-6">Recent Posts</h2>
+      <div id="recent-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Posts will be dynamically inserted here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-gray-400">&copy; <span id="footer-year"></span> Zest Craft. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Content Controller -->
+  <script>
+    // Content Controller
+    const contentController = {
+      website: {
+        name: "Zest Craft",
+        year: new Date().getFullYear()
+      },
+      featuredPost: {
+        title: "Confidence Starts Underneath: Bold Men’s Underwear at DealByEthan.shop",
+        description: "A tailored suit may command attention, and polished shoes may complete an outfit, but true confidence starts underneath. At DealByEthan.shop, we believe underwear isn’t just functional—it’s foundational. The right pair can make you feel bold, empowered, and authentically yourself, no matter the occasion.",
+        image: "https://i.ibb.co.com/W4gyCjv4/Deal-By-Ethan-shop.jpg",
+        link: "/DealByEthan-shop.html"
+      },
+      recentPosts: [
+        {
+          title: "Confidence Starts Underneath: Bold Men’s Underwear at DealByEthan.shop",
+          description: "A tailored suit may command attention, and polished shoes may complete an outfit, but true confidence starts underneath. At DealByEthan.shop, we believe underwear isn’t just functional—it’s foundational. The right pair can make you feel bold, empowered, and authentically yourself, no matter the occasion.",
+          image: "https://i.ibb.co.com/W4gyCjv4/Deal-By-Ethan-shop.jpg",
+          link: "/DealByEthan-shop.html"
+        },
+      ],
+
+      // Initialize content
+      init() {
+        this.updateWebsiteInfo();
+        this.updateFeaturedPost();
+        this.updateRecentPosts();
+      },
+
+      // Update website name and footer year
+      updateWebsiteInfo() {
+        document.getElementById("website-name").textContent = this.website.name;
+        document.getElementById("footer-year").textContent = this.website.year;
+      },
+
+      // Update featured post
+      updateFeaturedPost() {
+        const { title, description, image, link } = this.featuredPost;
+        document.getElementById("featured-title").textContent = title;
+        document.getElementById("featured-description").textContent = description;
+        document.getElementById("featured-image").src = image;
+        document.getElementById("featured-link").href = link;
+      },
+
+      // Update recent posts
+      updateRecentPosts() {
+        const recentPostsContainer = document.getElementById("recent-posts");
+        recentPostsContainer.innerHTML = ""; // Clear existing content
+        this.recentPosts.forEach(post => {
+          const postElement = document.createElement("div");
+          postElement.className = "bg-gray-800 rounded-lg shadow-lg overflow-hidden";
+          postElement.innerHTML = `
+            <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-lg font-bold mb-2">${post.title}</h3>
+              <p class="text-gray-400 mb-4">${post.description}</p>
+              <a href="${post.link}" class="text-yellow-400 hover:underline">Read More</a>
+            </div>
+          `;
+          recentPostsContainer.appendChild(postElement);
+        });
+      }
+    };
+
+    // Initialize the content controller
+    contentController.init();
+  </script>
+</body>
+</html>
